@@ -9,8 +9,12 @@ public class UserLogin implements Serializable{
 	/**
 	 * @param login
 	 * @param password
+	 * @throws UserLoginSintaxException 
 	 */
-	public UserLogin(String login, String password) throws UserLoginException{
+	public UserLogin(String login, String password) throws UserLoginException, UserLoginSintaxException{
+		if (!validarSintaxisUserLogin(login, password)) {
+			throw new UserLoginSintaxException();
+		}
 		if (!validarUserLogin(login, password)){
 			throw new UserLoginException();
 		}
@@ -18,6 +22,9 @@ public class UserLogin implements Serializable{
 		this.password = password;
 	}
 
+	private static boolean validarSintaxisUserLogin(String login, String password) {
+		return (!login.isEmpty() && !password.isEmpty());
+	}
 	/**
 	 * 
 	 * @param login
